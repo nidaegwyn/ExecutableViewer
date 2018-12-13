@@ -112,9 +112,12 @@ public class ResourceTable extends Table {
             String output = "";
 
             output += hex((int)(fileOffset & 0xffff) << 4) + "h\t" + (length << 4) + "\t" + hex(resourceID) + "h\t" +
-                    ((flag & 0x10) == 0x10 ? "MOVABLE " : "") +
+                    hex(flag) + "h (" +
+                    ((flag & 0x10) == 0x10 ? "MOVABLE " : "FIXED ") +
                     ((flag & 0x20) == 0x20 ? "PURE " : "") +
-                    ((flag & 0x40) == 0x40 ? "PRELOAD " : "");
+                    ((flag & 0x40) == 0x40 ? "PRELOAD " : "LOADONCALL ") +
+                    ((flag & 0x1000) == 0x1000 ? "DISCARDABLE " : "") +
+                    ")";
 
             return output;
         }
